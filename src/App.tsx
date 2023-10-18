@@ -30,6 +30,10 @@ function App() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (!todoDescription) {
+      return;
+    }
+
     const newTodo = {
       id: genId(),
       description: todoDescription,
@@ -99,7 +103,7 @@ function App() {
             onChange={(e) => setTodoDescription(e.target.value)}
           />
 
-          <button type="submit">Submit</button>
+          <button disabled={!todoDescription} type="submit">Submit</button>
         </form>
       </div>
 
