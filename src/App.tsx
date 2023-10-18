@@ -114,7 +114,7 @@ function App() {
       </ul>
     </Fragment>
   );
-};
+}
 
 function Todo(props: { todo: Todo; handleChange: (todo: Todo) => void; handleDelete: (todoId: string) => void }) {
   const { todo, handleChange, handleDelete } = props;
@@ -145,35 +145,39 @@ function Todo(props: { todo: Todo; handleChange: (todo: Todo) => void; handleDel
 
   return (
     <form onSubmit={handleSubmit} action="" data-mode={mode}>
-      <button
-        type="button"
-        disabled={!isFinished}
-        onClick={() => {
-          if (isFinished) {
-            handleDelete(todo.id);
-          }
-        }}
-      >
-        Delete
-      </button>
+      {mode == "view" && (
+        <Fragment>
+          <button
+            type="button"
+            disabled={!isFinished}
+            onClick={() => {
+              if (isFinished) {
+                handleDelete(todo.id);
+              }
+            }}
+          >
+            Delete
+          </button>
 
-      <input
-        type="checkbox"
-        checked={isFinished}
-        disabled={todo.progress < 100}
-        onChange={() => {
-          if (todo.progress == 100) {
-            setIsFinished((p) => {
-              return !p;
-            });
+          <input
+            type="checkbox"
+            checked={isFinished}
+            disabled={todo.progress < 100}
+            onChange={() => {
+              if (todo.progress == 100) {
+                setIsFinished((p) => {
+                  return !p;
+                });
 
-            handleChange({
-              ...todo,
-              isFinished: !isFinished
-            });
-          }
-        }}
-      />
+                handleChange({
+                  ...todo,
+                  isFinished: !isFinished
+                });
+              }
+            }}
+          />
+        </Fragment>
+      )}
 
       {mode == "view" ? (
         <div>
